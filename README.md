@@ -1,4 +1,4 @@
-React-Flux boilerplate/sample project
+Zedit - Built with Flux and Reactjs
 ================
 
 ## Setup
