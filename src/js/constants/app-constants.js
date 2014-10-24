@@ -1,0 +1,7 @@
+module.exports = {
+  NEW_NOTE: 'NEW_NOTE',
+  OPEN_NOTE: 'OPEN_NOTE',
+  SAVE_NOTE: 'SAVE_NOTE',
+  UPDATE_NOTE: 'UPDATE_NOTE',
+  SET_OPTIONS: 'SET_OPTIONS'
+};
