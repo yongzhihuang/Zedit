@@ -20,8 +20,7 @@ var Toolbar = React.createClass({
   saveNote: function() {
     //Get content currently in the editor, save it to localstorage
     var currentEditorData = AppStore.getEditorContent();
-    console.log(currentEditorData);
-    AppActions.saveNote(currentEditorData);
+    AppActions.saveNote();
 
   },
 

@@ -37,7 +37,7 @@ var MDArea = React.createClass({
   updateNoteData: function() {
     //Syncs to the store the data of the content editable and broadcast it
     var serializedNoteData = mediumEditorCache.serialize()['element-0'].value;
-    console.log('serializedNoteData', mediumEditorCache.serialize()['element-0']);
+    //console.log('serializedNoteData', mediumEditorCache.serialize()['element-0']);
     AppActions.updateNote(serializedNoteData);
   },
 

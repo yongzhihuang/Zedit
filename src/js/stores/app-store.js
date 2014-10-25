@@ -50,20 +50,23 @@ function _addItem(item){
 }
 
 
-var _editorContent = '';
+var _editorContent = '';  //The actual content in the text editor
+var _editorUpdateCache;   //The constantly updated version of the content after every keystroke
 
 function _updateNote(serializedNoteData) {
-  console.log('update', serializedNoteData);
-  _editorContent = '';
-  _editorContent = serializedNoteData;
+  //Update the editor cache with the text currently in there.
+  _editorUpdateCache = serializedNoteData;
 }
 
-function _saveNote(serializedNoteData) {
+function _saveNote() {
   //Save it to local storage of the currently opened file
-  localStorage.zedit(serializedNoteData);
+  localStorage.zedit = _editorUpdateCache;
+
+  //update the actual content variable, emit event
+  _editorContent = _editorUpdateCache;
 
   //Persist it to server
-  console.log('save!');
+
 }
 
 
@@ -80,16 +83,21 @@ var AppStore = merge(EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getCart:function(){
-    return _cartItems;
-  },
-
-  getCatalog:function(){
-    return _catalog;
+  loadFromLocalStorage: function() {
+    if (localStorage.zedit) {
+      return localStorage.zedit;
+    } else {
+      return 'Nothing found';
+    }
   },
 
   getEditorContent: function() {
-    return _editorContent;
+    if (localStorage.zedit) {
+      return localStorage.zedit;
+    } else {
+      return _editorContent;
+    }
+
   },
 
   dispatcherIndex:AppDispatcher.register(function(payload){
@@ -109,7 +117,7 @@ var AppStore = merge(EventEmitter.prototype, {
         break;
 
       case AppConstants.SAVE_NOTE:
-        _saveNote(payload.action.serializedNoteData);
+        _saveNote();
         break;
 
       case AppConstants.SET_OPTIONS:
